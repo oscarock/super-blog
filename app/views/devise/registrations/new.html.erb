@@ -1,9 +1,11 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-6 col-sm-offset-3">
-      <h2 class="text-center">Login</h2>
+      <h2 class="text-center">Register User</h2>
       <br>
-      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= devise_error_messages! %>
+
         <div class="form-group">
           <%= f.email_field :email, class: "form-control input-lg", placeholder: "Email", autofocus: true %>
         </div>
@@ -12,19 +14,14 @@
           <%= f.password_field :password, class: "form-control input-lg", placeholder: "Password", autocomplete: "off" %>
         </div>
 
-        <% if devise_mapping.rememberable? -%>
-          <div class="form-check">
-            <%= f.check_box :remember_me, class: "form-check-input" %>
-            <%= f.label :remember_me %>
-          </div>
-        <% end -%>
+        <div class="form-group">
+          <%= f.password_field :password_confirmation, class: "form-control input-lg", placeholder: "Password Confirmation", autocomplete: "off" %>
+        </div>
         <br>
         <div class="actions">
-          <%= f.submit "Ingresar", class: "btn btn-success btn-lg btn-block" %>
+          <%= f.submit "Sign up", class: "btn btn-success btn-lg btn-block" %>
         </div>
       <% end %>
-      <br>
-      <%= link_to "Sign Up", new_user_registration_path, class: "text-center"  %>
       <%# render "devise/shared/links" %>
     </div>
   </div>
