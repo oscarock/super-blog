@@ -15,7 +15,25 @@
 			        <br>
 			        Creado Por: <strong><%= post.user.email  %></strong>
 			        <br>
-			        <strong><%= link_to "Ver Mas", post_path(post) %></strong>
+			        <% if current_user != nil %>
+				        <% if post.user_id == current_user.id %>
+					        <%= link_to "#" do %>
+					          <span class="glyphicon glyphicon-edit"></span>
+					          Editar
+					        <% end %>
+					        |
+					        <%= link_to "#" do %>
+					          <span class="glyphicon glyphicon-remove"></span>
+					          Eliminar
+					        <% end %>
+					      <% else %>
+					      	<span class="label label-danger">Sin acciones sobre este post.</span>	
+					      <% end %>
+					    <% else %>
+					    	<span class="label label-danger">Debes Ingresar para ver las opciones.</span>		  
+					    <% end %>  
+			      	<br>
+			        <strong><%= link_to "Ver Mas", post_path(post) %></strong><br>
 			      </div>
 					</div>
 				<% end %>		
