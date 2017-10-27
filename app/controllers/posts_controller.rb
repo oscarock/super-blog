@@ -31,6 +31,13 @@ class PostsController < ApplicationController
 			@errors = @posts.errors.full_messages
 			render :edit
 		end		
+	end
+
+	def destroy
+		post = Post.find(params[:id])
+		post.destroy
+
+		redirect_to posts_path	
 	end	
 
 	private
