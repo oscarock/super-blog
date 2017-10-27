@@ -3,23 +3,35 @@ class PostsController < ApplicationController
 		@posts = Post.order('created_at ASC')
 	end
 
-	def  new
-		@posts = Post.new	
+	def new
+		@posts = Post.new
+		@title = 'Registrar Posts'	
 	end
 
 	def create
 		@posts = Post.new(post_params)
 		if @posts.save
-			redirect_to posts_path, :notice => "Posts guardado"
+			redirect_to posts_path, :notice => "Posts guardado correctamente"
 		else
 			@errors = @posts.errors.full_messages
       render :new	
 		end	
 	end
 
-	# def edit
-	# 	@posts = Post.new(params[:id])		
-	# end		
+	def edit
+		@posts = Post.find(params[:id])
+		@title = 'Editar Posts'	
+	end
+
+	def update
+		@posts = Post.find(params[:id])
+		if @posts.update(post_params)
+			redirect_to posts_path, :notice => "Post Editado correctamente"
+		else
+			@errors = @posts.errors.full_messages
+			render :edit
+		end		
+	end	
 
 	private
 		def post_params

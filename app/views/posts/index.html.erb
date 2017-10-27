@@ -17,15 +17,17 @@
 			        <br>
 			        <% if current_user != nil %>
 				        <% if post.user_id == current_user.id %>
-					        <%= link_to "#" do %>
-					          <span class="glyphicon glyphicon-edit"></span>
-					          Editar
-					        <% end %>
+					        <%# link_to "#" do %>
+					          <!-- <span class="glyphicon glyphicon-edit"></span> -->
+					          <!-- Editar -->
+					        <%# end %>
+					          <%# link_to "#" do %>
+					          <!-- <span class="glyphicon glyphicon-remove"></span>
+					          Eliminar -->
+					        <%# end %>
+					        <%= link_to "<span class='glyphicon glyphicon-edit'><span>".html_safe, edit_post_path(post) %>
 					        |
-					        <%= link_to "#" do %>
-					          <span class="glyphicon glyphicon-remove"></span>
-					          Eliminar
-					        <% end %>
+					     		<%= link_to "<span class='glyphicon glyphicon-remove'><span>".html_safe, edit_post_path(post) %>
 					      <% else %>
 					      	<span class="label label-danger">Sin acciones sobre este post.</span>	
 					      <% end %>
