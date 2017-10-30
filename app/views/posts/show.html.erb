@@ -1,0 +1,52 @@
+<div class="container">
+	<% if @errors %>
+    <% @errors.each do |error| %>
+    <li class="text-center alert alert-danger"><%= error %></li>
+    <% end %>
+	<% end %>
+	<div class="row">
+		<div class="col-md-9 col-md-offset-2">
+			<%= link_to "Volver", posts_path() %>
+			<h1><%= @post.title.upcase %></h1>
+			<p><%= @post.body %><p>
+		</div>
+
+		<div class="col-md-9 col-md-offset-2">
+			<h1>COMENTARIOS:</h1>
+			<% if @post.comment.count == 0 %>
+				<span class="label label-danger">Este Post No tiene Comentarios :(</span>
+				<br>
+				<br>
+				<br>
+				<br>
+			<% else %>
+				<% @post.comment.each do |comment| %>
+					<div class="panel panel-default">
+			      <div class="panel-body">
+			      	<%= link_to "<span class='pull-right glyphicon glyphicon-remove'><span>".html_safe, [@post,comment], method: :delete, data: { confirm: 'Estados seguro ?' } %>
+			    		<p><%= comment.body %></p>		
+			      </div>
+			      <div class="text-right fixed-top">
+			      	<strong>Fecha Creado :</strong> <%= comment.created_at.strftime("%d-%m-%Y %H:%M:%S") %><br>
+			      	<strong>Comentado Por :</strong> <%= comment.user.email %>
+			      	<br>
+			      </div>
+					</div>
+				<% end %>
+				<br>
+				<br>
+			<% end %>
+			<% if user_signed_in? %>
+				<%= form_for [@post, @comment] do |f| %>
+				  <div class="form-group">
+				  	<%= f.hidden_field 'post_id', value: @post.id %>
+				  	<%= f.text_area :body, class: "form-control input-lg", placeholder: "Comentar" %><br>
+				  </div>
+				<%= f.submit "Comentar", class: "pull-right btn btn-success" %><br>
+				<% end %>
+			<% else %>
+				<div class="alert alert-danger text-center">Debes Ingresar para poder comentar.</div>
+			<% end %>
+		</div>
+	</div>
+</div>
