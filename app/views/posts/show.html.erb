@@ -23,7 +23,15 @@
 				<% @post.comment.each do |comment| %>
 					<div class="panel panel-default">
 			      <div class="panel-body">
-			      	<%= link_to "<span class='pull-right glyphicon glyphicon-remove'><span>".html_safe, [@post,comment], method: :delete, data: { confirm: 'Estados seguro ?' } %>
+			      	<% if current_user != nil %>
+			      		<% if comment.user_id == current_user.id %>
+									<%= link_to "<span class='pull-right glyphicon glyphicon-remove'><span>".html_safe, [@post,comment], method: :delete, data: { confirm: 'Estados seguro ?' } %>
+								<% else %>
+									<span class="label label-danger pull-right">No puedes borrar este comentario.</span>			
+			      		<% end %>
+			      		<% else %>
+			      			<span class="label label-danger pull-right">Debes Ingresar para ver las opciones.</span>	
+			      	<% end %>
 			    		<p><%= comment.body %></p>		
 			      </div>
 			      <div class="text-right fixed-top">
